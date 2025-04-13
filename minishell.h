@@ -6,11 +6,11 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/12 12:36:18 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/12 17:52:50 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef MINISHELL_H
+#ifndef MINISHELL_H
 # define MINISHELL_H
 
 # include <stdio.h>
@@ -20,8 +20,8 @@
 
 typedef struct s_cmd
 {
-	void	*cmd;
-	void	*next;
+	void			*cmd;
+	struct s_cmd	*next;
 }			t_cmd;
 
 int		ft_strlen(char	*str);

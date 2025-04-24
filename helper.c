@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 17:04:31 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/24 15:00:57 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/24 15:42:42 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,28 +40,6 @@ void	add_token(t_token **tokens, t_token **last, t_token_type type,
 		*last = new_token;
 	}
 }
-
-// char	*expand_env(char *input)
-// {
-// 	char	*env_name;
-// 	char	*env_value;
-// 	int		i;
-
-// 	i = 0;
-// 	while (input[i])
-// 	{
-// 		// if (input[i] == '$' && input[i + 1] == '?')
-// 		// {
-// 		// 	env_value = ft_itoa(exit_status);
-// 		// }
-// 		// else
-// 		if (input[i] == '$' && ((ft_isalpha(input[i + 1]) || input[i
-// 					+ 1] == '_')))
-// 		{
-// 			env_name = extract_env(input + 1);
-// 		}
-// 	}
-// }
 
 char	*extract_env(char *input)
 {

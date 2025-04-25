@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/25 13:11:19 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/25 15:28:27 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ t_env				*ft_lstnew(void *var, void *value);
 t_token				*tokeniser(char *input, t_env *env);
 char				*expand_env(char *input, t_env *env);
 void				ft_lstadd_back(t_env **lst, t_env *new);
-char 				*ft_strcpy(char *dest, const char *src);
+char				*ft_strcpy(char *dest, const char *src);
 int					ft_strcmp(const char *s1, const char *s2);
 char				*add_word_inside_quote(char c, char *str);
 void				handle_out_redirection(char *input, int *i,
@@ -106,7 +106,7 @@ void				add_token(t_token **tokens, t_token **last,
 char				*ft_substr(char const *s, int start, int len);
 void				handle_word(char *input, int *i, t_token **tokens,
 						t_token **last);
-char				*extract_env(char *input, t_env *env, int len_var);
+// char				*extract_env(char *input, t_env *env, int len_var);
 void				handle_quotes(char *input, int *i, t_token **tokens,
 						t_token **last);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -114,5 +114,8 @@ void				handle_redirection(char *input, int *i, t_token **tokens,
 						t_token **last);
 void				handle_in_redirection(char *input, int *i, t_token **tokens,
 						t_token **last);
+char				*extract_env(char *input, t_env *env, int dollar_pos,
+						char *var_name);
+char				*ft_strncpy(char *dest, const char *src, int n);
 
 #endif

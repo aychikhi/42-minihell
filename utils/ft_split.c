@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:16:39 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/10 12:18:03 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/25 15:24:33 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	len(const char *str, char c, int i)
 	return (j);
 }
 
-static char	*ft_strncpy(char *dest, const char *src, int n)
+static char	*ft_strrncpy(char *dest, const char *src, int n)
 {
 	int	i;
 
@@ -91,7 +91,7 @@ char	**ft_split(char const *s, char c)
 		ptr[i] = malloc((l + 1) * sizeof(char));
 		if (!ptr[i])
 			return (free_2d_arr(ptr), free(ptr), NULL);
-		ft_strncpy(ptr[i++], s + j, l);
+		ft_strrncpy(ptr[i++], s + j, l);
 	}
 	return (ptr[i] = NULL, ptr);
 }

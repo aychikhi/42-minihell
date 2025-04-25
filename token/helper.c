@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 17:04:31 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/25 13:18:31 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/25 15:36:33 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,60 +54,63 @@ static int	handle_dollar(char *input)
 	return (l);
 }
 
-static int	check_env_name(char *input, int len, t_env *env)
-{
-	t_env	*tmp;
-
-	tmp = env;
-	while (env)
-	{
-		if (!ft_strncmp(env->var, input, len))
-			return (1);
-		env = env->next;
-	}
-	env = tmp;
-	return (0);
-}
-
 static char	*handle_env_expansion(char *input, int i, t_env *env)
 {
 	int		l;
 	char	*result;
+	char	*var_name;
 
 	l = handle_dollar(input + i);
-	if (check_env_name(input + (i + 1), l, env))
+	if (l > 0)
 	{
-		result = extract_env(input, env, l);
+		var_name = ft_substr(input, i + 1, l);
+		if (!var_name)
+			return (NULL);
+		result = extract_env(input, env, i, var_name);
+		free(var_name);
 		return (result);
 	}
 	return (NULL);
 }
 
+static int	process_dollar_sign(char **expanded, int i, t_env *env)
+{
+	char	*temp;
+
+	temp = handle_env_expansion(*expanded, i, env);
+	if (temp)
+	{
+		free(*expanded);
+		*expanded = temp;
+		return (1);
+	}
+	return (0);
+}
+
 char	*expand_env(char *input, t_env *env)
 {
-	int		in_sq;
 	int		i;
-	char	*result;
-	char	*original_input;
+	int		in_sq;
+	char	*expanded;
 
 	i = 0;
 	in_sq = 0;
-	original_input = input;
-	while (input[i])
+	expanded = ft_strdup(input);
+	if (!expanded)
+		return (NULL);
+	while (expanded[i])
 	{
-		if (input[i] == '\'')
+		if (expanded[i] == '\'')
 			in_sq = !in_sq;
-		else if (input[i] == '$' && !in_sq)
+		else if (expanded[i] == '$' && !in_sq)
 		{
-			result = handle_env_expansion(input + i, 0, env);
-			if (result)
+			if (process_dollar_sign(&expanded, i, env))
 			{
-				if (input != original_input)
-					free(input);
-				return (result);
+				i = 0;
+				continue ;
 			}
 		}
 		i++;
 	}
-	return (input);
+	return (expanded);
 }

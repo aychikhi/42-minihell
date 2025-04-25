@@ -6,11 +6,17 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:03:38 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/24 15:37:13 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/25 12:21:18 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	malloc_error(void)
+{
+	printf("malloc Error !\n");
+	exit(EXIT_FAILURE);
+}
 
 char	*add_word(char *str)
 {
@@ -79,18 +85,19 @@ t_token	*tokeniser(char *input, t_env *env)
 	t_token				*tokens;
 	t_token				*last;
 	t_tokenize_state	state;
+	char				*new_input;
 
 	i = 0;
-	(void)env;
+	new_input = expand_env(input, env);
 	last = NULL;
 	tokens = NULL;
 	state.i = &i;
 	state.tokens = &tokens;
 	state.last = &last;
-	if (!input)
+	if (!new_input)
 		return (NULL);
-	while (input[i])
-		handle_token(input[i], input, &state);
+	while (new_input[i])
+		handle_token(new_input[i], new_input, &state);
 	add_token(&tokens, &last, TOKEN_EOF, "EOF");
 	return (tokens);
 }

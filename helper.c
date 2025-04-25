@@ -6,17 +6,11 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 17:04:31 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/24 15:42:42 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/25 12:32:39 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	malloc_error(void)
-{
-	printf("malloc Error !\n");
-	exit(EXIT_FAILURE);
-}
 
 void	add_token(t_token **tokens, t_token **last, t_token_type type,
 		const char *value)
@@ -41,24 +35,79 @@ void	add_token(t_token **tokens, t_token **last, t_token_type type,
 	}
 }
 
-char	*extract_env(char *input)
+static int	handle_dollar(char *input)
 {
-	int		i;
-	int		l;
-	char	*name;
+	int	i;
+	int	l;
 
 	i = 0;
 	l = 0;
-	while (input[l] && (ft_isalnum(input[l]) || input[l] == '_'))
-		l++;
-	name = malloc(l + 1);
-	if (!name)
-		malloc_error();
-	while (i < l)
+	if (ft_isalpha(input[1]) || input[1] == '_')
 	{
-		name[i] = input[i];
+		i++;
+		while (input[i] && (ft_isalnum(input[i]) || input[i] == '_'))
+		{
+			l++;
+			i++;
+		}
+	}
+	return (l);
+}
+
+static int	check_env_name(char *input, int len, t_env *env)
+{
+	t_env	*tmp;
+
+	tmp = env;
+	while (env)
+	{
+		if (!ft_strncmp(env->var, input, len))
+			return (1);
+		env = env->next;
+	}
+	env = tmp;
+	return (0);
+}
+
+static char	*handle_env_expansion(char *input, int i, t_env *env)
+{
+	int		l;
+	char	*result;
+
+	l = handle_dollar(input + i);
+	if (check_env_name(input + (i + 1), l, env))
+	{
+		result = extract_env(input, env, l);
+		return (result);
+	}
+	return (NULL);
+}
+
+char	*expand_env(char *input, t_env *env)
+{
+	int		in_sq;
+	int		i;
+	char	*result;
+	char	*original_input;
+
+	i = 0;
+	in_sq = 0;
+	original_input = input;
+	while (input[i])
+	{
+		if (input[i] == '\'')
+			in_sq = !in_sq;
+		else if (input[i] == '$' && !in_sq)
+		{
+			result = handle_env_expansion(input + i, 0, env);
+			if (result)
+			{
+				if (input != original_input)
+					free(input);
+				return (result);
+			}
+		}
 		i++;
 	}
-	name[i] = '\0';
-	return (name);
+	return (input);
 }

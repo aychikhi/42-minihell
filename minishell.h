@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/24 15:37:40 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/25 13:11:19 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,26 +84,32 @@ char				*add_word(char *str);
 void				one_space(char **line);
 char				*extract_var(char *var);
 int					check_quotes(char *line);
-char				*extract_env(char *input);
 void				check_unprint(char **line);
 int					ft_strlen(const char *str);
 char				*ft_strdup(const char *s1);
 char				*extract_value(char *value);
 void				free_tokens(t_token *tokens);
 int					skip_fun(char *line, int flag);
+char				*ft_strchr(const char *s, int c);
 char				**ft_split(char const *s, char c);
 t_env				*ft_lstnew(void *var, void *value);
 t_token				*tokeniser(char *input, t_env *env);
+char				*expand_env(char *input, t_env *env);
 void				ft_lstadd_back(t_env **lst, t_env *new);
+char 				*ft_strcpy(char *dest, const char *src);
+int					ft_strcmp(const char *s1, const char *s2);
 char				*add_word_inside_quote(char c, char *str);
 void				handle_out_redirection(char *input, int *i,
 						t_token **tokens, t_token **last);
 void				add_token(t_token **tokens, t_token **last,
 						t_token_type type, const char *value);
+char				*ft_substr(char const *s, int start, int len);
 void				handle_word(char *input, int *i, t_token **tokens,
 						t_token **last);
+char				*extract_env(char *input, t_env *env, int len_var);
 void				handle_quotes(char *input, int *i, t_token **tokens,
 						t_token **last);
+int					ft_strncmp(const char *s1, const char *s2, size_t n);
 void				handle_redirection(char *input, int *i, t_token **tokens,
 						t_token **last);
 void				handle_in_redirection(char *input, int *i, t_token **tokens,

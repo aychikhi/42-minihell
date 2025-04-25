@@ -6,11 +6,11 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:24:22 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/25 12:32:04 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/25 13:18:40 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	handle_in_redirection(char *input, int *i, t_token **tokens,
 		t_token **last)

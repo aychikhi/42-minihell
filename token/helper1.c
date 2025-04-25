@@ -6,11 +6,11 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 12:31:53 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/25 12:10:52 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/25 13:18:36 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	free_tokens(t_token *tokens)
 {

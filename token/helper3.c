@@ -6,11 +6,11 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 12:11:41 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/25 13:13:48 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/25 13:18:44 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 static int	len_value(char *input, t_env *env, int len_var)
 {

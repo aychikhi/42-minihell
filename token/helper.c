@@ -6,11 +6,11 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 17:04:31 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/25 12:32:39 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/25 13:18:31 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	add_token(t_token **tokens, t_token **last, t_token_type type,
 		const char *value)

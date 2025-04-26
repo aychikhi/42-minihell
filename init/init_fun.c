@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 16:46:02 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/25 17:16:04 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/26 17:40:46 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,18 @@ t_env	*env_init(char **env)
 	return (new_env);
 }
 
-// t_cmd	*init_cmd(t_cmd **cmd, t_token *tokens)
-// {
-// 	t_cmd	*tmp;
+void	init_cmd(t_cmd **cmd, t_token *tokens)
+{
+	t_cmd	*tmp;
 
-// 	tmp = *cmd;
-// 	while (tokens)
-// 	{		
-// 		tmp = malloc(sizeof (t_cmd));
-// 		if (tokens->type == 0)
-// 		{
-// 			tmp->cmd = tokens->value;
-// 		}
-// 		tokens = tokens->next;
-// 	}
-// }
+	tmp = *cmd;
+	while (tokens)
+	{
+		tmp = malloc(sizeof (t_cmd));
+		if (tokens->type == 0)
+		{
+			tmp->cmd = tokens->value;
+		}
+		tokens = tokens->next;
+	}
+}

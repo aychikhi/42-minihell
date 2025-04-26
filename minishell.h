@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/25 17:07:39 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/26 17:43:57 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,13 @@ typedef enum e_token_type
 {
 	TOKEN_WORD,
 	TOKEN_PIPE,
-	TOKEN_SINGLE_QUOTE,
-	TOKEN_DOUBLE_QUOTE,
+	TOKEN_SPACE,
+	TOKEN_APPEND,
+	TOKEN_HEREDOC,
 	TOKEN_REDIR_IN,
 	TOKEN_REDIR_OUT,
-	TOKEN_HEREDOC,
-	TOKEN_APPEND,
+	TOKEN_SINGLE_QUOTE,
+	TOKEN_DOUBLE_QUOTE,
 	TOKEN_EOF,
 }					t_token_type;
 
@@ -53,13 +54,12 @@ typedef struct s_env
 	struct s_env	*next;
 }					t_env;
 
-
-// typedef struct s_command
-// {
-// 	t_env			*env;
-// 	t_cmd			*cmd;
-// 	unsigned char	exit_status;
-// }					t_command;
+typedef struct s_command
+{
+	t_env			*env;
+	t_cmd			*cmd;
+	unsigned char	exit_status;
+}					t_command;
 
 typedef struct s_token
 {
@@ -75,6 +75,16 @@ typedef struct s_tokenize_state
 	t_token			**last;
 }					t_tokenize_state;
 
+typedef struct s_exp_data
+{
+	int				i;
+	int				in_sq;
+	int				in_dq;
+	t_env			*env;
+	char			*expanded;
+}					t_exp_data;
+
+char				*ft_strjoin(char const *s1, char const *s2);
 int					error_fun(void);
 char				*ft_itoa(int n);
 int					ft_isdigit(int c);
@@ -91,9 +101,10 @@ int					ft_strlen(const char *str);
 char				*ft_strdup(const char *s1);
 char				*extract_value(char *value);
 void				free_tokens(t_token *tokens);
+int					check_tokens(t_token **tokens);
 int					skip_fun(char *line, int flag);
+int					skip_spaces(char *input, int *i);
 t_env				*ft_lstnew(void *var, void *value);
-void				tokeniser(char *input, t_env *env, t_cmd *cmd);
 char				*expand_env(char *input, t_env *env);
 void				ft_lstadd_back(t_env **lst, t_env *new);
 char				*ft_strcpy(char *dest, const char *src);
@@ -106,7 +117,10 @@ void				add_token(t_token **tokens, t_token **last,
 t_tokenize_state	tokenize_state_init(int *i, t_token **tokens,
 						t_token **last);
 char				*ft_substr(char const *s, int start, int len);
+void				tokeniser(char *input, t_env *env, t_cmd *cmd);
 char				*ft_strncpy(char *dest, const char *src, int n);
+int					check_red(char *input, t_tokenize_state *state);
+int					check_pipe(char *input, t_tokenize_state *state);
 void				handle_word(char *input, int *i, t_token **tokens,
 						t_token **last);
 void				handle_quotes(char *input, int *i, t_token **tokens,
@@ -117,6 +131,5 @@ void				handle_redirection(char *input, int *i, t_token **tokens,
 						t_token **last);
 void				handle_in_redirection(char *input, int *i, t_token **tokens,
 						t_token **last);
-// t_token			*tokeniser(char *input, t_env *env);
 
 #endif

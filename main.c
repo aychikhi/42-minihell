@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:09:50 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/25 16:59:17 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/26 17:40:42 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int	main(int ac, char **av, char **env)
 	t_env	*new_env;
 	t_cmd	cmd;
 
-	// t_token	*tokens;
 	(void)av;
 	(void)ac;
 	new_env = env_init(env);
@@ -65,11 +64,7 @@ int	main(int ac, char **av, char **env)
 			return (2);
 		flag = check_quotes(line);
 		if (flag)
-		{
-			// tokens = tokeniser(line, new_env);
 			tokeniser(line, new_env, &cmd);
-			// print_token(tokens);
-		}
 		free(line);
 	}
 	return (0);

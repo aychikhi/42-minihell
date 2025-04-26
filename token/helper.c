@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 17:04:31 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/25 15:36:33 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/26 16:39:14 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,44 +73,46 @@ static char	*handle_env_expansion(char *input, int i, t_env *env)
 	return (NULL);
 }
 
-static int	process_dollar_sign(char **expanded, int i, t_env *env)
+static int	process_exp_char(t_exp_data *data)
 {
 	char	*temp;
 
-	temp = handle_env_expansion(*expanded, i, env);
-	if (temp)
+	if (data->expanded[data->i] == '\'' && !data->in_dq)
+		data->in_sq = !data->in_sq;
+	else if (data->expanded[data->i] == '\"' && !data->in_sq)
+		data->in_dq = !data->in_dq;
+	else if (data->expanded[data->i] == '$' && !data->in_sq)
 	{
-		free(*expanded);
-		*expanded = temp;
-		return (1);
+		temp = handle_env_expansion(data->expanded, data->i, data->env);
+		if (temp)
+		{
+			free(data->expanded);
+			data->expanded = temp;
+			data->i = 0;
+			if (data->in_dq)
+				data->in_dq = !data->in_dq;
+			return (1);
+		}
 	}
 	return (0);
 }
 
 char	*expand_env(char *input, t_env *env)
 {
-	int		i;
-	int		in_sq;
-	char	*expanded;
+	t_exp_data	data;
 
-	i = 0;
-	in_sq = 0;
-	expanded = ft_strdup(input);
-	if (!expanded)
+	data.i = 0;
+	data.in_sq = 0;
+	data.in_dq = 0;
+	data.env = env;
+	data.expanded = ft_strdup(input);
+	if (!data.expanded)
 		return (NULL);
-	while (expanded[i])
+	while (data.expanded[data.i])
 	{
-		if (expanded[i] == '\'')
-			in_sq = !in_sq;
-		else if (expanded[i] == '$' && !in_sq)
-		{
-			if (process_dollar_sign(&expanded, i, env))
-			{
-				i = 0;
-				continue ;
-			}
-		}
-		i++;
+		if (process_exp_char(&data))
+			continue ;
+		data.i++;
 	}
-	return (expanded);
+	return (data.expanded);
 }

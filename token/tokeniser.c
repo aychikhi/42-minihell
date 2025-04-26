@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:03:38 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/25 17:53:58 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/26 17:41:38 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,66 +18,33 @@ void	malloc_error(void)
 	exit(EXIT_FAILURE);
 }
 
-char	*add_word(char *str)
-{
-	int		i;
-	int		l;
-	char	*ptr;
-
-	i = 0;
-	l = 0;
-	while (str[l] && str[l] != '\'' && str[l] != '\"' && str[l] != ' '
-		&& str[l] != '<' && str[l] != '>')
-		l++;
-	ptr = malloc(l + 1);
-	if (!ptr)
-		malloc_error();
-	while (i < l)
-	{
-		ptr[i] = str[i];
-		i++;
-	}
-	ptr[i] = '\0';
-	return (ptr);
-}
-
-char	*add_word_inside_quote(char c, char *str)
-{
-	int		l;
-	int		i;
-	char	*ptr;
-
-	i = 0;
-	l = 0;
-	while (str[l] && str[l] != c)
-		l++;
-	ptr = malloc(l + 1);
-	if (!ptr)
-		malloc_error();
-	while (i < l)
-	{
-		ptr[i] = str[i];
-		i++;
-	}
-	ptr[i] = '\0';
-	return (ptr);
-}
-
-static void	handle_token(char c, char *input, t_tokenize_state *state)
+static int	handle_token(char c, char *input, t_tokenize_state *state)
 {
 	if (c == ' ')
-		(*state->i)++;
+	{
+		add_token(state->tokens, state->last, TOKEN_SPACE, " ");
+		(*state->i) = skip_spaces(input, state->i);
+	}
 	else if (c == '|')
 	{
+		if (!check_pipe(input, state))
+			return (0);
+		else if (check_pipe(input, state) == 3)
+			(*state->i)++;
 		add_token(state->tokens, state->last, TOKEN_PIPE, "|");
 		(*state->i)++;
 	}
 	else if (c == '<' || c == '>')
+	{
+		if (!check_red(input, state))
+			return (0);
 		handle_redirection(input, state->i, state->tokens, state->last);
+	}
 	else if (c == '\'' || c == '\"')
 		handle_quotes(input, state->i, state->tokens, state->last);
 	else
 		handle_word(input, state->i, state->tokens, state->last);
+	return (1);
 }
 
 static void	print_token(t_token *tokens)
@@ -92,7 +59,29 @@ static void	print_token(t_token *tokens)
 	}
 }
 
-// t_token	*tokeniser(char *input, t_env *env)
+static int	process_tokens(char *input, t_tokenize_state *state)
+{
+	while (input[*state->i])
+	{
+		if (!handle_token(input[*state->i], input, state))
+			return (0);
+	}
+	return (1);
+}
+
+static void	finalize_tokens(t_token **tokens, t_token **last)
+{
+	add_token(tokens, last, TOKEN_EOF, "EOF");
+	if (!check_tokens(tokens))
+	{
+		free_tokens(*tokens);
+		*tokens = NULL;
+		return ;
+	}
+	// join_token();
+	print_token(*tokens);
+}
+
 void	tokeniser(char *input, t_env *env, t_cmd *cmd)
 {
 	int					i;
@@ -109,11 +98,14 @@ void	tokeniser(char *input, t_env *env, t_cmd *cmd)
 	state = tokenize_state_init(&i, &tokens, &last);
 	if (!new_input)
 		return ;
-	while (new_input[i])
-		handle_token(new_input[i], new_input, &state);
-	add_token(&tokens, &last, TOKEN_EOF, "EOF");
-	// cmd = init_cmd(&cmd, tokens);
-	print_token(tokens);
+	if (!process_tokens(new_input, &state))
+	{
+		free_tokens(tokens);
+		free(new_input);
+		return ;
+	}
+	finalize_tokens(&tokens, &last);
+	cmd = init_cmd(&cmd, tokens, env);
 	free_tokens(tokens);
-	// return (tokens);
+	free(new_input);
 }

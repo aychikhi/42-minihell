@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:05:51 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/26 16:35:08 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/26 18:38:02 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,22 @@ int	check_red(char *input, t_tokenize_state *state)
 	if (l > 2)
 		return (printf("syntax error\n"), 0);
 	return (1);
+}
+
+void	check_and_join_token(t_token ***token)
+{
+	t_token	*tmp;
+	t_token	*tmp2;
+
+	tmp = **token;
+	while (tmp->next && tmp->next->type != 2 && tmp->type != 2
+		&& tmp->next->type != 9)
+	{
+		tmp->value = ft_strjoin(tmp->value, tmp->next->value);
+		tmp->type = 0;
+		tmp2 = tmp->next;
+		tmp->next = tmp2->next;
+	}
 }
 
 int	check_tokens(t_token **tokens)

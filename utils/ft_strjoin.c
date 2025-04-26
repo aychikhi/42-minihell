@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:42:54 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/26 17:43:50 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/26 18:03:52 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ static char	*ft_strcat(char *str, char const *s2, size_t start, size_t l)
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*str;
-	size_t	l;
-	size_t	i;
+	int		l;
+	int		i;
 
 	if (!s1 || !s2)
 		return (NULL);

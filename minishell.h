@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/26 17:43:57 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/26 18:35:38 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ typedef struct s_exp_data
 	char			*expanded;
 }					t_exp_data;
 
-char				*ft_strjoin(char const *s1, char const *s2);
 int					error_fun(void);
 char				*ft_itoa(int n);
 int					ft_isdigit(int c);
@@ -106,6 +105,7 @@ int					skip_fun(char *line, int flag);
 int					skip_spaces(char *input, int *i);
 t_env				*ft_lstnew(void *var, void *value);
 char				*expand_env(char *input, t_env *env);
+void				check_and_join_token(t_token ***token);
 void				ft_lstadd_back(t_env **lst, t_env *new);
 char				*ft_strcpy(char *dest, const char *src);
 int					ft_strcmp(const char *s1, const char *s2);
@@ -114,6 +114,7 @@ void				handle_out_redirection(char *input, int *i,
 						t_token **tokens, t_token **last);
 void				add_token(t_token **tokens, t_token **last,
 						t_token_type type, const char *value);
+char				*ft_strjoin(char const *s1, char const *s2);
 t_tokenize_state	tokenize_state_init(int *i, t_token **tokens,
 						t_token **last);
 char				*ft_substr(char const *s, int start, int len);

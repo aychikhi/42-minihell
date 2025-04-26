@@ -6,17 +6,11 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:03:38 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/26 18:37:51 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/26 18:45:33 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	malloc_error(void)
-{
-	printf("malloc Error !\n");
-	exit(EXIT_FAILURE);
-}
 
 static int	handle_token(char c, char *input, t_tokenize_state *state)
 {
@@ -105,7 +99,6 @@ void	tokeniser(char *input, t_env *env, t_cmd *cmd)
 		return ;
 	}
 	finalize_tokens(&tokens, &last);
-	// cmd = init_cmd(&cmd, tokens, env);
 	free_tokens(tokens);
 	free(new_input);
 }

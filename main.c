@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:09:50 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/26 17:40:42 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/26 18:45:38 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@ int	error_fun(void)
 {
 	printf("Error: Unclosed quotes!\n");
 	return (0);
+}
+
+void	malloc_error(void)
+{
+	printf("malloc Error !\n");
+	exit(EXIT_FAILURE);
 }
 
 void	one_space(char **line)

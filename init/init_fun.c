@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 16:46:02 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/27 19:52:15 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/27 20:30:06 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,64 +76,6 @@ static int	arg_size(t_token *tokens)
 	return (size);
 }
 
-// void	init_cmd(t_cmd **cmd, t_token *tokens)
-// {
-// 	t_cmd	*tmp;
-// 	t_cmd	*new;
-// 	int		i = 0;
-
-// 	*cmd = malloc (sizeof(t_cmd));
-// 	(*cmd)->args = malloc ((arg_size(tokens) + 1) * sizeof(char *));
-// 	for (int i = 0; i < arg_size(tokens); i++)
-// 		(*cmd)->args[i] = NULL;
-// 	(*cmd)->next = NULL;
-// 	(*cmd)->file = malloc (sizeof(t_file));
-// 	(*cmd)->file->name = NULL;
-// 	(*cmd)->file->type = 0;
-// 	(*cmd)->file->next = NULL;
-// 	tmp = *cmd;
-// 	while (tokens && tokens->type != 9)
-// 	{
-// 		if (tokens->type == 2)
-// 			tokens = tokens->next;
-// 		else
-// 		{
-// 			if (tokens->type == 1)
-// 			{
-// 				i = 0;
-// 				new = malloc (sizeof(t_cmd));
-// 				new->args = malloc ((arg_size(tokens) + 1) * sizeof(char *));
-// 				for (int i = 0; i < arg_size(tokens); i++)
-// 					new->args[i] = NULL;
-// 				new->next = NULL;
-// 				new->file = malloc (sizeof(t_file));
-// 				new->file->name = NULL;
-// 				new->file->type = 0;
-// 				new->file->next = NULL;
-// 				tmp->next = new;
-// 			}
-// 			tmp->cmd = tokens->value;
-// 			while (tokens->type != 1 && tokens->type != 3 && tokens->type != 4
-// 				&& tokens->type != 5 && tokens->type != 6 && tokens->type != 9)
-// 			{
-// 				if (tokens->type == 2)
-// 					tokens = tokens->next;
-// 				tmp->args[i] = ft_strdup(tokens->value);
-// 				i++;
-// 				tokens = tokens->next;
-// 			}
-// 			if (tokens->type == 3 || tokens->type == 4 || tokens->type == 5
-// 				|| tokens->type == 6)
-// 			{
-// 				tmp->file->type = tokens->type;
-// 				tmp->file->name = ft_strdup(tokens->next->value);
-// 				tmp->file = tmp->file->next;
-// 			}
-// 		}
-// 		tokens = tokens->next;
-// 	}
-// }
-
 void	init_cmd(t_cmd **cmd, t_token *tokens)
 {
 	t_cmd	*tmp;
@@ -178,13 +120,14 @@ void	init_cmd(t_cmd **cmd, t_token *tokens)
 			|| tokens->type == 6)
 		{
 			tmp->file->type = tokens->type;
+			while (tokens->next->type == 2)
+				tokens = tokens->next;
 			if (tokens->next && tokens->next->type != 9)
 			{
-				tmp->file->name = ft_strdup(tokens->next->value);
 				new_file = malloc(sizeof(t_file));
-				new_file->name = NULL;
-				new_file->type = 0;
+				new_file->name = ft_strdup(tokens->next->value);
 				new_file->next = NULL;
+				new_file->type = tmp->file->type;
 				tmp->file->next = new_file;
 				tmp->file = tmp->file->next;
 				tokens = tokens->next->next;

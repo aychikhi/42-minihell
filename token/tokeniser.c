@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:03:38 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/27 19:55:00 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/27 20:30:34 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,6 @@ static int	handle_token(char c, char *input, t_tokenize_state *state)
 	return (1);
 }
 
-// static void	print_token(t_token *tokens)
-// {
-// 	t_token	*tmp;
-
-// 	tmp = tokens;
-// 	while (tmp)
-// 	{
-// 		printf("Type: %d, Value: %s\n", tmp->type, tmp->value);
-// 		tmp = tmp->next;
-// 	}
-// }
-
 static int	process_tokens(char *input, t_tokenize_state *state)
 {
 	while (input[*state->i])
@@ -73,14 +61,14 @@ static void	finalize_tokens(t_token **tokens, t_token **last)
 		return ;
 	}
 	check_and_join_token(&tokens);
-	// print_token(*tokens);
 }
 
 static void	print_command(t_command *cmd)
 {
 	t_command	*tmp;
-	int i = 0;
+	int			i;
 
+	i = 0;
 	tmp = cmd;
 	while (tmp->cmd)
 	{
@@ -92,10 +80,11 @@ static void	print_command(t_command *cmd)
 			printf("[%s] ", tmp->cmd->args[i]);
 			i++;
 		}
-		printf("\n");		
+		printf("\n");
 		while (tmp->cmd->file)
 		{
-			printf("file : %s type : %d\n", tmp->cmd->file->name, tmp->cmd->file->type);
+			printf("file : %s type : %d\n", tmp->cmd->file->name,
+				tmp->cmd->file->type);
 			tmp->cmd->file = tmp->cmd->file->next;
 		}
 		tmp->cmd = tmp->cmd->next;

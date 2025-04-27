@@ -6,11 +6,36 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 20:34:34 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/27 20:35:03 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/27 20:35:50 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+static int	arg_size(t_token *tokens)
+{
+	t_token	*tmp;
+	int		size;
+
+	size = 0;
+	tmp = tokens;
+	while (tmp)
+	{
+		if (tmp->type == 1 || tmp->type == 9)
+			break ;
+		else if (tmp->type == 3 || tmp->type == 4 || tmp->type == 5
+			|| tmp->type == 6)
+			tmp = tmp->next->next->next;
+		else if (tmp->type == 2)
+			tmp = tmp->next;
+		else
+		{
+			size++;
+			tmp = tmp->next;
+		}
+	}
+	return (size);
+}
 
 void	init_cmd(t_cmd **cmd, t_token *tokens)
 {

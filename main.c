@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:09:50 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/26 18:45:38 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/27 15:13:14 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ void	one_space(char **line)
 
 int	main(int ac, char **av, char **env)
 {
-	int		flag;
-	char	*line;
-	t_env	*new_env;
-	t_cmd	cmd;
+	int			flag;
+	char		*line;
+	t_command	cmd;
+	t_env		*new_env;
 
 	(void)av;
 	(void)ac;

@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/27 13:17:50 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/27 15:26:34 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ typedef struct s_exp_data
 	t_env			*env;
 	char			*expanded;
 }					t_exp_data;
-
+void				init_cmd(t_cmd **cmd, t_token *tokens);
+void				init_command(t_command **cmd, t_token *tokens, t_env **env);
 char				*ft_itoa(int n);
 int					error_fun(void);
 int					ft_isdigit(int c);
@@ -118,7 +119,7 @@ char				*ft_strjoin(char const *s1, char const *s2);
 t_tokenize_state	tokenize_state_init(int *i, t_token **tokens,
 						t_token **last);
 char				*ft_substr(char const *s, int start, int len);
-void				tokeniser(char *input, t_env *env, t_cmd *cmd);
+void				tokeniser(char *input, t_env *env, t_command *cmd);
 char				*ft_strncpy(char *dest, const char *src, int n);
 int					check_red(char *input, t_tokenize_state *state);
 int					check_pipe(char *input, t_tokenize_state *state);

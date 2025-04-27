@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:03:38 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/27 11:09:52 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/27 19:55:00 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,17 @@ static int	handle_token(char c, char *input, t_tokenize_state *state)
 	return (1);
 }
 
-static void	print_token(t_token *tokens)
-{
-	t_token	*tmp;
+// static void	print_token(t_token *tokens)
+// {
+// 	t_token	*tmp;
 
-	tmp = tokens;
-	while (tmp)
-	{
-		printf("Type: %d, Value: %s\n", tmp->type, tmp->value);
-		tmp = tmp->next;
-	}
-}
+// 	tmp = tokens;
+// 	while (tmp)
+// 	{
+// 		printf("Type: %d, Value: %s\n", tmp->type, tmp->value);
+// 		tmp = tmp->next;
+// 	}
+// }
 
 static int	process_tokens(char *input, t_tokenize_state *state)
 {
@@ -73,10 +73,36 @@ static void	finalize_tokens(t_token **tokens, t_token **last)
 		return ;
 	}
 	check_and_join_token(&tokens);
-	print_token(*tokens);
+	// print_token(*tokens);
 }
 
-void	tokeniser(char *input, t_env *env, t_cmd *cmd)
+static void	print_command(t_command *cmd)
+{
+	t_command	*tmp;
+	int i = 0;
+
+	tmp = cmd;
+	while (tmp->cmd)
+	{
+		i = 0;
+		printf("cmd : %s\n", tmp->cmd->cmd);
+		printf("args : ");
+		while (tmp->cmd->args[i])
+		{
+			printf("[%s] ", tmp->cmd->args[i]);
+			i++;
+		}
+		printf("\n");		
+		while (tmp->cmd->file)
+		{
+			printf("file : %s type : %d\n", tmp->cmd->file->name, tmp->cmd->file->type);
+			tmp->cmd->file = tmp->cmd->file->next;
+		}
+		tmp->cmd = tmp->cmd->next;
+	}
+}
+
+void	tokeniser(char *input, t_env *env, t_command *cmd)
 {
 	int					i;
 	t_token				*tokens;
@@ -99,6 +125,8 @@ void	tokeniser(char *input, t_env *env, t_cmd *cmd)
 		return ;
 	}
 	finalize_tokens(&tokens, &last);
+	init_command(&cmd, tokens, &env);
+	print_command(cmd);
 	free_tokens(tokens);
 	free(new_input);
 }

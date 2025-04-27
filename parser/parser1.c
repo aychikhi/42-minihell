@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:05:51 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/26 18:38:02 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/27 13:18:42 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,21 @@ void	check_and_join_token(t_token ***token)
 	t_token	*tmp2;
 
 	tmp = **token;
-	while (tmp->next && tmp->next->type != 2 && tmp->type != 2
-		&& tmp->next->type != 9)
+	while (tmp)
 	{
-		tmp->value = ft_strjoin(tmp->value, tmp->next->value);
-		tmp->type = 0;
-		tmp2 = tmp->next;
-		tmp->next = tmp2->next;
+		if (tmp->next && tmp->type != 1 && tmp->next->type != 1
+			&& tmp->next->type != 9 && tmp->type != 9 && tmp->next->type != 2
+			&& tmp->type != 2 && tmp->next->type != 3 && tmp->type != 3
+			&& tmp->next->type != 4 && tmp->type != 4 && tmp->next->type != 5
+			&& tmp->type != 5 && tmp->next->type != 6 && tmp->type != 6)
+		{
+			tmp->value = ft_strjoin(tmp->value, tmp->next->value);
+			tmp->type = 0;
+			tmp2 = tmp->next;
+			tmp->next = tmp2->next;
+		}
+		else
+			tmp = tmp->next;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:23:07 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/26 17:31:30 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/26 19:53:01 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*add_word(char *str)
 	i = 0;
 	l = 0;
 	while (str[l] && str[l] != '\'' && str[l] != '\"' && str[l] != ' '
-		&& str[l] != '<' && str[l] != '>')
+		&& str[l] != '<' && str[l] != '>' && str[l] != '|')
 		l++;
 	ptr = malloc(l + 1);
 	if (!ptr)

@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/26 18:35:38 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/27 13:17:50 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ typedef struct s_exp_data
 	char			*expanded;
 }					t_exp_data;
 
-int					error_fun(void);
 char				*ft_itoa(int n);
+int					error_fun(void);
 int					ft_isdigit(int c);
 int					ft_isalpha(int c);
 int					ft_isalnum(int c);
@@ -95,13 +95,13 @@ t_env				*env_init(char **env);
 void				one_space(char **line);
 char				*extract_var(char *var);
 int					check_quotes(char *line);
-void				check_unprint(char **line);
-int					ft_strlen(const char *str);
 char				*ft_strdup(const char *s1);
+int					ft_strlen(const char *str);
+void				check_unprint(char **line);
 char				*extract_value(char *value);
 void				free_tokens(t_token *tokens);
-int					check_tokens(t_token **tokens);
 int					skip_fun(char *line, int flag);
+int					check_tokens(t_token **tokens);
 int					skip_spaces(char *input, int *i);
 t_env				*ft_lstnew(void *var, void *value);
 char				*expand_env(char *input, t_env *env);

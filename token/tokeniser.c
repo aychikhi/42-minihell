@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:03:38 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/28 17:21:19 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/28 17:25:25 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ void	tokeniser(char *input, t_env *env, t_command *cmd)
 	}
 	finalize_tokens(&tokens, &last);
 	init_command(&cmd, tokens, &env);
-	// print_command(cmd);
 	free_tokens(tokens);
 	free_cmd(cmd->cmd);
 	free(new_input);

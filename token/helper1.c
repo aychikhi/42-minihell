@@ -6,12 +6,11 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 12:31:53 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/28 17:21:28 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/28 17:24:52 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
 
 char	*extract_var(char *var)
 {

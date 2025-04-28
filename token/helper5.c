@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 17:20:51 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/28 17:22:28 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/28 17:25:00 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	free_tokens(t_token *tokens)
 		free(tmp);
 	}
 }
-
 
 void	free_file(t_file *file)
 {

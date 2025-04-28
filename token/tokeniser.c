@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:03:38 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/28 11:17:25 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/28 16:23:21 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ static void	print_command(t_command *cmd)
 			i++;
 		}
 		printf("\n");
-		if (tmp->cmd->file->type)
-		{	
+		if (tmp->cmd->file)
+		{
 			while (tmp->cmd->file)
 			{
 				printf("file : %s type : %d\n", tmp->cmd->file->name,
@@ -94,22 +94,41 @@ static void	print_command(t_command *cmd)
 	}
 }
 
-// static int	ft_lstsize(t_file *lst)
-// {
-// 	int		i;
-// 	t_file	*current;
+void	free_file(t_file *file)
+{
+	t_file	*tmp;
 
-// 	if (!lst)
-// 		return (0);
-// 	i = 0;
-// 	current = lst;
-// 	while (current != NULL)
-// 	{
-// 		i++;
-// 		current = current->next;
-// 	}
-// 	return (i);
-// }
+	while (file)
+	{
+		tmp = file;
+		file = file->next;
+		free(tmp->name);
+		free(tmp);
+	}
+}
+
+void	free_cmd(t_cmd *cmd)
+{
+	t_cmd	*tmp;
+	int		i;
+
+	i = 0;
+	while (cmd)
+	{
+		i = 0;
+		tmp = cmd;
+		cmd = cmd->next;
+		while (tmp->args[i])
+		{
+			free(tmp->args[i]);
+			i++;
+		}
+		free(tmp->args);
+		free(tmp->cmd);
+		free_file(tmp->file);
+		free(tmp);
+	}
+}
 
 void	tokeniser(char *input, t_env *env, t_command *cmd)
 {
@@ -135,8 +154,8 @@ void	tokeniser(char *input, t_env *env, t_command *cmd)
 	}
 	finalize_tokens(&tokens, &last);
 	init_command(&cmd, tokens, &env);
-	// printf("size = %d\n",ft_lstsize(cmd->cmd->file));
 	print_command(cmd);
 	free_tokens(tokens);
+	free_cmd(cmd->cmd);
 	free(new_input);
 }

@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/28 11:28:56 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/28 14:46:47 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,7 @@ typedef struct s_exp_data
 	char			*expanded;
 }					t_exp_data;
 
-t_cmd	*add_new(int size);
-void				init_cmd(t_cmd **cmd, t_token *tokens);
-void				init_command(t_command **cmd, t_token *tokens, t_env **env);
+t_cmd				*add_new(int size);
 char				*ft_itoa(int n);
 int					error_fun(void);
 int					ft_isdigit(int c);
@@ -106,8 +104,10 @@ void				free_tokens(t_token *tokens);
 int					skip_fun(char *line, int flag);
 int					check_tokens(t_token **tokens);
 int					skip_spaces(char *input, int *i);
+t_file				*add_newfile(void *name, int type);
 t_env				*ft_lstnew(void *var, void *value);
 char				*expand_env(char *input, t_env *env);
+void				init_cmd(t_cmd **cmd, t_token *tokens);
 void				check_and_join_token(t_token ***token);
 void				ft_lstadd_back(t_env **lst, t_env *new);
 char				*ft_strcpy(char *dest, const char *src);
@@ -135,5 +135,6 @@ void				handle_redirection(char *input, int *i, t_token **tokens,
 						t_token **last);
 void				handle_in_redirection(char *input, int *i, t_token **tokens,
 						t_token **last);
+void				init_command(t_command **cmd, t_token *tokens, t_env **env);
 
 #endif

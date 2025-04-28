@@ -6,13 +6,13 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 11:29:04 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/28 11:29:30 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/28 11:32:55 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static t_file	*add_newfile(void *name, int type)
+t_file	*add_newfile(void *name, int type)
 {
 	t_file	*tmp;
 

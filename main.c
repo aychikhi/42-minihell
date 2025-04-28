@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:09:50 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/27 15:13:14 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/28 16:20:26 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,11 @@ void	one_space(char **line)
 	line[0][i] = '\0';
 }
 
+void	ll(void)
+{
+	system("leaks -q minishell");
+}
+
 int	main(int ac, char **av, char **env)
 {
 	int			flag;
@@ -60,6 +65,7 @@ int	main(int ac, char **av, char **env)
 	t_command	cmd;
 	t_env		*new_env;
 
+	atexit(ll);
 	(void)av;
 	(void)ac;
 	new_env = env_init(env);

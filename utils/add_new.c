@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 11:28:24 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/28 11:28:46 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/28 15:48:12 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,6 @@ t_cmd	*add_new(int size)
 		malloc_error();
 	tmp->next = NULL;
 	tmp->cmd = NULL;
-	tmp->file = malloc(sizeof(t_file));
-	if (!tmp->file)
-		malloc_error();
-	tmp->file->name = NULL;
-	tmp->file->type = 0;
-	tmp->file->next = NULL;
+	tmp->file = NULL;
 	return (tmp);
 }

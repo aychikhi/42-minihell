@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:09:50 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/28 16:20:26 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/28 17:22:20 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	main(int ac, char **av, char **env)
 	{
 		line = readline("minishell :");
 		if (!line)
-			return (2);
+			return (free_env(new_env), free(line), 2);
 		flag = check_quotes(line);
 		if (flag)
 			tokeniser(line, new_env, &cmd);

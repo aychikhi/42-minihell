@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:03:38 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/28 16:23:21 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/28 17:21:19 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,72 +63,36 @@ static void	finalize_tokens(t_token **tokens, t_token **last)
 	check_and_join_token(&tokens);
 }
 
-static void	print_command(t_command *cmd)
-{
-	t_command	*tmp;
-	int			i;
+// static void	print_command(t_command *cmd)
+// {
+// 	t_command	*tmp;
+// 	int			i;
 
-	i = 0;
-	tmp = cmd;
-	while (tmp->cmd)
-	{
-		i = 0;
-		printf("cmd : %s\n", tmp->cmd->cmd);
-		printf("args : ");
-		while (tmp->cmd->args[i])
-		{
-			printf("[%s] ", tmp->cmd->args[i]);
-			i++;
-		}
-		printf("\n");
-		if (tmp->cmd->file)
-		{
-			while (tmp->cmd->file)
-			{
-				printf("file : %s type : %d\n", tmp->cmd->file->name,
-					tmp->cmd->file->type);
-				tmp->cmd->file = tmp->cmd->file->next;
-			}
-		}
-		tmp->cmd = tmp->cmd->next;
-	}
-}
-
-void	free_file(t_file *file)
-{
-	t_file	*tmp;
-
-	while (file)
-	{
-		tmp = file;
-		file = file->next;
-		free(tmp->name);
-		free(tmp);
-	}
-}
-
-void	free_cmd(t_cmd *cmd)
-{
-	t_cmd	*tmp;
-	int		i;
-
-	i = 0;
-	while (cmd)
-	{
-		i = 0;
-		tmp = cmd;
-		cmd = cmd->next;
-		while (tmp->args[i])
-		{
-			free(tmp->args[i]);
-			i++;
-		}
-		free(tmp->args);
-		free(tmp->cmd);
-		free_file(tmp->file);
-		free(tmp);
-	}
-}
+// 	i = 0;
+// 	tmp = cmd;
+// 	while (tmp->cmd)
+// 	{
+// 		i = 0;
+// 		printf("cmd : %s\n", tmp->cmd->cmd);
+// 		printf("args : ");
+// 		while (tmp->cmd->args[i])
+// 		{
+// 			printf("[%s] ", tmp->cmd->args[i]);
+// 			i++;
+// 		}
+// 		printf("\n");
+// 		if (tmp->cmd->file)
+// 		{
+// 			while (tmp->cmd->file)
+// 			{
+// 				printf("file : %s type : %d\n", tmp->cmd->file->name,
+// 					tmp->cmd->file->type);
+// 				tmp->cmd->file = tmp->cmd->file->next;
+// 			}
+// 		}
+// 		tmp->cmd = tmp->cmd->next;
+// 	}
+// }
 
 void	tokeniser(char *input, t_env *env, t_command *cmd)
 {
@@ -154,7 +118,7 @@ void	tokeniser(char *input, t_env *env, t_command *cmd)
 	}
 	finalize_tokens(&tokens, &last);
 	init_command(&cmd, tokens, &env);
-	print_command(cmd);
+	// print_command(cmd);
 	free_tokens(tokens);
 	free_cmd(cmd->cmd);
 	free(new_input);

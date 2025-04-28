@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 16:46:02 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/27 20:35:42 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/28 17:19:57 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,4 @@ void	init_command(t_command **cmd, t_token *tokens, t_env **env)
 	}
 	(*cmd)->env = *env;
 	init_cmd(&(*cmd)->cmd, tokens);
-	(*cmd)->exit_status = 0;
 }

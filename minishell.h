@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/28 14:46:47 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/28 17:22:37 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ typedef struct s_command
 {
 	t_env			*env;
 	t_cmd			*cmd;
-	unsigned char	exit_status;
 }					t_command;
 
 typedef struct s_token
@@ -84,16 +83,19 @@ typedef struct s_exp_data
 	char			*expanded;
 }					t_exp_data;
 
-t_cmd				*add_new(int size);
 char				*ft_itoa(int n);
 int					error_fun(void);
 int					ft_isdigit(int c);
 int					ft_isalpha(int c);
 int					ft_isalnum(int c);
 void				malloc_error(void);
+t_cmd				*add_new(int size);
+void				free_env(t_env *env);
+void				free_cmd(t_cmd *cmd);
 char				*add_word(char *str);
 t_env				*env_init(char **env);
 void				one_space(char **line);
+void				free_file(t_file *file);
 char				*extract_var(char *var);
 int					check_quotes(char *line);
 char				*ft_strdup(const char *s1);

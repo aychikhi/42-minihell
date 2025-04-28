@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 20:34:34 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/27 20:35:50 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/28 11:29:27 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,14 @@ static int	arg_size(t_token *tokens)
 void	init_cmd(t_cmd **cmd, t_token *tokens)
 {
 	t_cmd	*tmp;
-	t_cmd	*new;
-	t_file	*new_file;
 	int		i;
+	int		flag;
+	int		type;
 
+	flag = 0;
 	i = 0;
-	*cmd = malloc(sizeof(t_cmd));
-	(*cmd)->args = malloc((arg_size(tokens) + 1) * sizeof(char *));
-	for (int j = 0; j <= arg_size(tokens); j++)
-		(*cmd)->args[j] = NULL;
-	(*cmd)->next = NULL;
-	(*cmd)->file = malloc(sizeof(t_file));
-	(*cmd)->file->name = NULL;
-	(*cmd)->file->type = 0;
-	(*cmd)->file->next = NULL;
-	(*cmd)->cmd = NULL;
+	type = 0;
+	*cmd = add_new(arg_size(tokens));
 	tmp = *cmd;
 	while (tokens && tokens->type != 9)
 	{
@@ -62,35 +55,31 @@ void	init_cmd(t_cmd **cmd, t_token *tokens)
 			tokens = tokens->next;
 		else if (tokens->type == 1)
 		{
+			flag = 0;
 			i = 0;
-			new = malloc(sizeof(t_cmd));
-			new->args = malloc((arg_size(tokens->next) + 1) * sizeof(char *));
-			for (int j = 0; j <= arg_size(tokens->next); j++)
-				new->args[j] = NULL;
-			new->next = NULL;
-			new->cmd = NULL;
-			new->file = malloc(sizeof(t_file));
-			new->file->name = NULL;
-			new->file->type = 0;
-			new->file->next = NULL;
-			tmp->next = new;
-			tmp = new;
 			tokens = tokens->next;
+			while (tokens->type == 2)
+				tokens = tokens->next;
+			tmp->next = add_new(arg_size(tokens));
+			tmp = tmp->next;
 		}
 		else if (tokens->type == 3 || tokens->type == 4 || tokens->type == 5
 			|| tokens->type == 6)
 		{
-			tmp->file->type = tokens->type;
+			type = tokens->type;
 			while (tokens->next->type == 2)
 				tokens = tokens->next;
 			if (tokens->next && tokens->next->type != 9)
 			{
-				new_file = malloc(sizeof(t_file));
-				new_file->name = ft_strdup(tokens->next->value);
-				new_file->next = NULL;
-				new_file->type = tmp->file->type;
-				tmp->file->next = new_file;
-				tmp->file = tmp->file->next;
+				if (!flag)
+				{
+					flag = 1;
+					tmp->file = add_newfile(ft_strdup(tokens->next->value),
+							type);
+				}
+				else
+					tmp->file->next = add_newfile(ft_strdup(tokens->next->value),
+							type);
 				tokens = tokens->next->next;
 			}
 			else

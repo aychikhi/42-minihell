@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/27 15:26:34 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/28 11:28:56 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ typedef struct s_exp_data
 	t_env			*env;
 	char			*expanded;
 }					t_exp_data;
+
+t_cmd	*add_new(int size);
 void				init_cmd(t_cmd **cmd, t_token *tokens);
 void				init_command(t_command **cmd, t_token *tokens, t_env **env);
 char				*ft_itoa(int n);

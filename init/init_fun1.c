@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 20:34:34 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/29 11:08:15 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/29 15:20:27 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ static void	add_file_to_cmd(t_cmd *tmp, t_token **tokens, int type, int *flag)
 			tmp->file = add_newfile(ft_strdup((*tokens)->next->value), type);
 		}
 		else
-			tmp->file->next = add_newfile(ft_strdup((*tokens)->next->value),
-					type);
+			add_backfile(&tmp->file,
+				add_newfile(ft_strdup((*tokens)->next->value), type));
 		*tokens = (*tokens)->next->next;
 	}
 	else

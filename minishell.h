@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/29 10:37:49 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/29 16:36:51 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <readline/readline.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <unistd.h>
 
 typedef enum e_token_type
 {
@@ -81,6 +80,7 @@ typedef struct s_exp_data
 	int				in_dq;
 	t_env			*env;
 	char			*expanded;
+	int				flag;
 }					t_exp_data;
 
 int					error_fun(void);
@@ -93,7 +93,6 @@ void				free_env(t_env *env);
 void				free_cmd(t_cmd *cmd);
 char				*add_word(char *str);
 t_env				*env_init(char **env);
-void				one_space(char **line);
 void				free_file(t_file *file);
 char				*extract_var(char *var);
 int					check_quotes(char *line);
@@ -105,11 +104,13 @@ void				free_tokens(t_token *tokens);
 int					skip_fun(char *line, int flag);
 int					check_tokens(t_token **tokens);
 int					skip_spaces(char *input, int *i);
+int					process_exp_char(t_exp_data *data);
 t_file				*add_newfile(void *name, int type);
 t_env				*ft_lstnew(void *var, void *value);
 char				*expand_env(char *input, t_env *env);
 void				init_cmd(t_cmd **cmd, t_token *tokens);
 void				check_and_join_token(t_token ***token);
+void				add_backfile(t_file **lst, t_file *new);
 void				ft_lstadd_back(t_env **lst, t_env *new);
 char				*ft_strcpy(char *dest, const char *src);
 int					ft_strcmp(const char *s1, const char *s2);
@@ -122,16 +123,17 @@ char				*ft_strjoin(char const *s1, char const *s2);
 t_tokenize_state	tokenize_state_init(int *i, t_token **tokens,
 						t_token **last);
 char				*ft_substr(char const *s, int start, int len);
-void				tokeniser(char *input, t_env *env, t_command *cmd);
 char				*ft_strncpy(char *dest, const char *src, int n);
 int					check_red(char *input, t_tokenize_state *state);
 int					check_pipe(char *input, t_tokenize_state *state);
 void				handle_word(char *input, int *i, t_token **tokens,
 						t_token **last);
+void				tokeniser(char *input, t_env *env, t_command *cmd);
 void				handle_quotes(char *input, int *i, t_token **tokens,
 						t_token **last);
 char				*extract_env(char *input, t_env *env, int dollar_pos,
 						char *var_name);
+char				*handle_env_expansion(char *input, int i, t_env *env);
 void				handle_redirection(char *input, int *i, t_token **tokens,
 						t_token **last);
 void				handle_in_redirection(char *input, int *i, t_token **tokens,

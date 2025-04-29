@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:03:38 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/29 11:25:26 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/29 17:11:54 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ static void	finalize_tokens(t_token **tokens, t_token **last)
 	}
 	check_and_join_token(&tokens);
 }
-
 // static void	print_command(t_command *cmd)
 // {
 // 	t_command	*tmp;
@@ -102,7 +101,6 @@ void	tokeniser(char *input, t_env *env, t_command *cmd)
 	t_tokenize_state	state;
 	char				*new_input;
 
-	(void)cmd;
 	i = 0;
 	new_input = expand_env(input, env);
 	last = NULL;
@@ -122,3 +120,5 @@ void	tokeniser(char *input, t_env *env, t_command *cmd)
 	free_cmd(cmd->cmd);
 	free(new_input);
 }
+
+	// print_command(cmd);

@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 13:05:10 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/26 14:06:20 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/29 15:34:06 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,16 @@ void	check_unprint(char **line)
 {
 	int	i;
 	int	f;
+	int	in_q;
 
 	i = 0;
 	f = 0;
+	in_q = 0;
 	while (line[0][f])
 	{
-		if (line[0][f] >= 1 && line[0][f] <= 31)
+		if (line[0][f] == '\'' || line[0][f] == '\"')
+			in_q = !in_q;
+		if (line[0][f] >= 1 && line[0][f] <= 31 && !in_q)
 			f++;
 		else
 		{
@@ -32,6 +36,35 @@ void	check_unprint(char **line)
 	}
 	line[0][i] = '\0';
 }
+
+// void	one_space(char **line)
+// {
+// 	int	i;
+// 	int	f;
+// 	int	flag;
+
+// 	i = 0;
+// 	f = 0;
+// 	flag = 0;
+// 	while (line[0][f])
+// 	{
+// 		while (line[0][f] == ' ')
+// 		{
+// 			flag = 1;
+// 			f++;
+// 		}
+// 		if (flag)
+// 		{
+// 			line[0][i] = ' ';
+// 			flag = 0;
+// 			i++;
+// 		}
+// 		line[0][i] = line[0][f];
+// 		f++;
+// 		i++;
+// 	}
+// 	line[0][i] = '\0';
+// }
 
 int	skip_fun(char *line, int flag)
 {

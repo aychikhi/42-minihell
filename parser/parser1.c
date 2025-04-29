@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:05:51 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/29 11:25:13 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/29 13:08:08 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	check_pipe(char *input, t_tokenize_state *state)
 	{
 		i++;
 		l++;
+		while (input[i] == ' ')
+			i++;
 	}
 	if (l > 1)
 		return (printf("syntax error near unexpected token `|'\n"), 0);

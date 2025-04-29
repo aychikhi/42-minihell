@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 17:04:31 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/28 15:09:13 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/29 16:38:39 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	handle_dollar(char *input)
 	return (l);
 }
 
-static char	*handle_env_expansion(char *input, int i, t_env *env)
+char	*handle_env_expansion(char *input, int i, t_env *env)
 {
 	int		l;
 	char	*result;
@@ -73,39 +73,59 @@ static char	*handle_env_expansion(char *input, int i, t_env *env)
 	return (NULL);
 }
 
-static int	process_exp_char(t_exp_data *data)
-{
-	char	*temp;
+// static int	process_exp_char(t_exp_data *data)
+// {
+// 	char	*temp;
 
-	if (data->expanded[data->i] == '\'' && !data->in_dq)
-		data->in_sq = !data->in_sq;
-	else if (data->expanded[data->i] == '\"' && !data->in_sq)
-		data->in_dq = !data->in_dq;
-	else if (data->expanded[data->i] == '$' && !data->in_sq)
-	{
-		temp = handle_env_expansion(data->expanded, data->i, data->env);
-		if (temp)
-		{
-			free(data->expanded);
-			data->expanded = temp;
-			data->i = 0;
-			if (data->in_dq)
-				data->in_dq = !data->in_dq;
-			return (1);
-		}
-	}
-	return (0);
+// 	if (data->expanded[data->i] == '<' && data->expanded[data->i + 1] == '<')
+// 	{
+// 		data->i++;
+// 		data->flag = !data->flag;
+// 		if (data->expanded[data->i + 1])
+// 		{
+// 			data->i++;
+// 			while (data->expanded[data->i] == ' ')
+// 				data->i++;
+// 		}
+// 	}
+// 	else if (data->expanded[data->i] == '\'' && !data->in_dq)
+// 		data->in_sq = !data->in_sq;
+// 	else if (data->expanded[data->i] == '\"' && !data->in_sq)
+// 		data->in_dq = !data->in_dq;
+// 	else if (data->expanded[data->i] == '$' && (!data->in_sq || !data->flag))
+// 	{
+// 		temp = handle_env_expansion(data->expanded, data->i, data->env);
+// 		if (temp)
+// 		{
+// 			free(data->expanded);
+// 			data->expanded = temp;
+// 			data->i = 0;
+// 			if (data->in_dq)
+// 				data->in_dq = !data->in_dq;
+// 			return (1);
+// 		}
+// 	}
+// 	else
+// 		data->flag = !data->flag;
+// 	return (0);
+// }
+static void	init_exp_data(t_exp_data *data, char *input, t_env *env)
+{
+	data->i = 0;
+	data->in_sq = 0;
+	data->in_dq = 0;
+	data->env = env;
+	data->flag = 0;
+	data->expanded = ft_strdup(input);
 }
 
 char	*expand_env(char *input, t_env *env)
 {
 	t_exp_data	data;
 
-	data.i = 0;
-	data.in_sq = 0;
-	data.in_dq = 0;
-	data.env = env;
-	data.expanded = ft_strdup(input);
+	if (!input)
+		return (NULL);
+	init_exp_data(&data, input, env);
 	if (!data.expanded)
 		return (NULL);
 	while (data.expanded[data.i])

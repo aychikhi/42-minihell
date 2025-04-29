@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:09:50 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/28 17:25:53 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/29 15:33:59 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,35 +24,6 @@ void	malloc_error(void)
 	exit(EXIT_FAILURE);
 }
 
-void	one_space(char **line)
-{
-	int	i;
-	int	f;
-	int	flag;
-
-	i = 0;
-	f = 0;
-	flag = 0;
-	while (line[0][f])
-	{
-		while (line[0][f] == ' ')
-		{
-			flag = 1;
-			f++;
-		}
-		if (flag)
-		{
-			line[0][i] = ' ';
-			flag = 0;
-			i++;
-		}
-		line[0][i] = line[0][f];
-		f++;
-		i++;
-	}
-	line[0][i] = '\0';
-}
-
 int	main(int ac, char **av, char **env)
 {
 	int			flag;
@@ -68,6 +39,7 @@ int	main(int ac, char **av, char **env)
 		line = readline("minishell :");
 		if (!line)
 			return (free_env(new_env), free(line), 2);
+		check_unprint(&line);
 		flag = check_quotes(line);
 		if (flag)
 			tokeniser(line, new_env, &cmd);

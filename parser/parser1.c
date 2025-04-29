@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:05:51 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/28 17:00:28 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/29 11:23:36 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,27 +37,42 @@ int	check_pipe(char *input, t_tokenize_state *state)
 	return (1);
 }
 
+static int	handle_redirection_chars(char *input, int *i, int *l)
+{
+	while (input[*i] == '>' || input[*i] == '<')
+	{
+		(*i)++;
+		(*l)++;
+		while (input[*i] == ' ')
+		{
+			(*i)++;
+			if (input[*i] == '|')
+				return (printf("syntax error near unexpected token `|'\n"), 0);
+		}
+		if (!input[*i])
+				return (printf("syntax error\n"), 0);
+		if (*l == 1 && input[*i - 1] == '>' && input[*i] == '|')
+			return (1);
+	}
+	return (2);
+}
+
 int	check_red(char *input, t_tokenize_state *state)
 {
 	int	i;
 	int	l;
+	int	ret;
 
 	l = 0;
 	i = *state->i;
 	if ((input[i] == '>' && input[i + 1] == '<') || (input[i] == '<' && input[i
 				+ 1] == '>'))
 		return (printf("syntax error\n"), 0);
-	while (input[i] == '>' || input[i] == '<')
-	{
-		i++;
-		l++;
-		while (input[i] == ' ')
-		{
-			i++;
-			if (input[i] == '|')
-				return (printf("syntax error near unexpected token `|'\n"), 0);
-		}
-	}
+	ret = handle_redirection_chars(input, &i, &l);
+	if (ret != 2)
+		return (ret);
+	if (input[i] == '|')
+		return (printf("syntax error near unexpected token `|'\n"), 0);
 	if (l > 2)
 		return (printf("syntax error\n"), 0);
 	return (1);

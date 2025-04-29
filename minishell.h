@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:13:29 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/28 17:22:37 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/04/29 10:37:49 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ typedef struct s_exp_data
 	char			*expanded;
 }					t_exp_data;
 
-char				*ft_itoa(int n);
 int					error_fun(void);
 int					ft_isdigit(int c);
 int					ft_isalpha(int c);

@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 17:04:31 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/04/29 16:38:39 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/05/01 19:20:55 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,42 +73,6 @@ char	*handle_env_expansion(char *input, int i, t_env *env)
 	return (NULL);
 }
 
-// static int	process_exp_char(t_exp_data *data)
-// {
-// 	char	*temp;
-
-// 	if (data->expanded[data->i] == '<' && data->expanded[data->i + 1] == '<')
-// 	{
-// 		data->i++;
-// 		data->flag = !data->flag;
-// 		if (data->expanded[data->i + 1])
-// 		{
-// 			data->i++;
-// 			while (data->expanded[data->i] == ' ')
-// 				data->i++;
-// 		}
-// 	}
-// 	else if (data->expanded[data->i] == '\'' && !data->in_dq)
-// 		data->in_sq = !data->in_sq;
-// 	else if (data->expanded[data->i] == '\"' && !data->in_sq)
-// 		data->in_dq = !data->in_dq;
-// 	else if (data->expanded[data->i] == '$' && (!data->in_sq || !data->flag))
-// 	{
-// 		temp = handle_env_expansion(data->expanded, data->i, data->env);
-// 		if (temp)
-// 		{
-// 			free(data->expanded);
-// 			data->expanded = temp;
-// 			data->i = 0;
-// 			if (data->in_dq)
-// 				data->in_dq = !data->in_dq;
-// 			return (1);
-// 		}
-// 	}
-// 	else
-// 		data->flag = !data->flag;
-// 	return (0);
-// }
 static void	init_exp_data(t_exp_data *data, char *input, t_env *env)
 {
 	data->i = 0;
